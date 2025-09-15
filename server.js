@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use(cors({
-    origin: "*",
+    origin: "https://blog-website-frontend-plum.vercel.app",
     credentials:true
 }))
 
