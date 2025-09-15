@@ -13,7 +13,6 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 
-
 // default middleware
 app.use(express.json());
 app.use(cookieParser());
@@ -25,12 +24,17 @@ app.use(cors({
 
 const _dirname = path.resolve()
 
-// apis
- app.use("/api/v1/user", userRoute)
- app.use("/api/v1/blog", blogRoute)
- app.use("/api/v1/comment", commentRoute)
+// ✅ Health check route to fix "Cannot GET /"
+app.get("/", (req, res) => {
+    res.json({ status: "ok", message: "Backend is running 🎉" });
+});
 
- app.use(express.static(path.join(_dirname,"/frontend/dist")));
+// apis
+app.use("/api/v1/user", userRoute)
+app.use("/api/v1/blog", blogRoute)
+app.use("/api/v1/comment", commentRoute)
+
+app.use(express.static(path.join(_dirname,"/frontend/dist")));
 //  app.get("*", (_, res)=>{
 //     res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"))
 //  });
