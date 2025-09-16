@@ -18,9 +18,13 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use(cors({
-    origin: "https://blog-website-frontend-plum.vercel.app",
-    credentials:true
-}))
+    origin: [
+        "http://localhost:5173", // ✅ allow local dev
+        "https://blog-website-frontend-plum.vercel.app" // ✅ allow deployed frontend
+    ],
+    credentials: true
+}));
+
 
 const _dirname = path.resolve()
 
