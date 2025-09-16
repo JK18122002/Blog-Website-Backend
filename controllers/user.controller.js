@@ -134,8 +134,12 @@ export const updateProfile = async(req, res) => {
         const {firstName, lastName, occupation, bio, instagram, facebook, linkedin, github} = req.body;
         const file = req.file;
 
-        const fileUri = getDataUri(file)
-        let cloudResponse = await cloudinary.uploader.upload(fileUri)
+            if (file) {
+                const fileUri = getDataUri(file);
+                cloudResponse = await cloudinary.uploader.upload(fileUri, {
+                    resource_type: "auto",
+                });
+                }
 
         const user = await User.findById(userId).select("-password")
         
